@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Login from "./Login";
-import MyPage from "./MyPage";
+import Login from "./components/intro/Login.jsx";
+import MyPage from "./components/mypage/MyPage.jsx";
 
 function App() {
     const [currentPage, setCurrentPage] = useState('login');

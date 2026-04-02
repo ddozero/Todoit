@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import './App.css'
 
 function MyPage() {
   const [isEdit, setIsEdit] = useState(false);
