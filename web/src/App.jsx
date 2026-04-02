@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Login from "./components/intro/Login.jsx";
-import MyPage from "./components/mypage/MyPage.jsx";
+import Profile from "./components/mypage/Profile.jsx";
 
 function App() {
     const [currentPage, setCurrentPage] = useState('login');
@@ -10,7 +10,7 @@ function App() {
             {currentPage === 'login' ? (
                 <Login onLoginSuccess={() => setCurrentPage('mypage')} />
             ) : (
-                <MyPage />
+                <Profile />
             )}
         </div>
     )

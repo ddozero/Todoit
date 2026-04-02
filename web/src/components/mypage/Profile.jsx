@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-function MyPage() {
+function Profile() {
   const [isEdit, setIsEdit] = useState(false);
 
   const [user, setUser] = useState({
@@ -89,4 +89,4 @@ function InforItem({ label, name, value, isEdit, onChange }) {
 
 }
 
-export default MyPage;
+export default Profile;
