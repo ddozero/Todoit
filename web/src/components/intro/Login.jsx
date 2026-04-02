@@ -16,23 +16,27 @@ function Login({ onLoginSuccess }) {
     return (
         <div className="login-container">
             <div className="login-box">
-                <h1>TODOIT!</h1>
-                <p>취업 관리 부탁해!</p>
+                <h1 className="logo">TODOIT!</h1>
+                <p className="subtitle">취업 할 수 있다! 취업 관리 부탁해!</p>
 
-                <div className="input-group">
-                    <label>아이디</label>
-                    <input type="text" value={id} onChange={(e) => setId(e.target.value)} />
-                </div>
+                <div className="input-form">
+                    <div className="input-group">
+                        <label>아이디</label>
+                        <input type="text" value={id} onChange={(e) => setId(e.target.value)} />
+                    </div>
 
-                <div className="input-group">
-                    <label>비밀번호</label>
-                    <input type="password" value={pw} onChange={(e) => setPw(e.target.value)} />
+                    <div className="input-group">
+                        <label>비밀번호</label>
+                        <input type="password" value={pw} onChange={(e) => setPw(e.target.value)} />
+                    </div>
                 </div>
 
                 <button onClick={handleLogin} className='login-btn'>로그인</button>
 
                 <div className="login-footer">
-                    <span>아이디찾기 | 비밀번호찾기</span>
+                    <span className="footer-link" onClick={() => console.log('아이디 찾기')}>아이디 찾기</span>
+                    <span className="divider">|</span>
+                    <span className="footer-link" onClick={() => console.log('비밀번호 찾기')}>비밀번호 찾기</span>
                 </div>
             </div>
         </div>

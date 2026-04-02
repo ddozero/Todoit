@@ -1,3 +1,5 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+
 .html, body {
     margin:0;
     padding:0;
@@ -6,11 +8,106 @@
 }
 
 .login-container {
-background-color: #0c305f; 
-  min-height: 100vh; 
+  background-color: #0c305f; 
+  height: 100vh; 
   width: 100vw;      
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  padding-top: 200px;
+  box-sizing: border-box;
   color: white;
+  overflow: hidden
+}
+
+.login-box{
+  text-align: center;
+  width: 100%;
+  max-width: 350px;
+}
+
+.logo{
+  font-size: 60px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 16px;
+  margin-bottom: 50px;
+}
+
+.input-form{
+  margin-bottom: 30px;
+}
+
+.input-group{
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.input-group label{
+  width: 80px;
+  text-align: left;
+  font-size: 16px;
+  
+}
+
+.input-group input {
+  flex: 1; 
+  height: 40px;
+  border-radius: 8px; 
+  border: none;
+  padding: 0 15px;
+  font-size: 16px;
+  outline: none;
+}
+
+/* 로그인 버튼 */
+.login-btn {
+  width: 25%;
+  height: 40px;
+  background-color: #ffffff;
+  color: #0c305f;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top:20px;
+  margin-bottom: 25px;
+  transition: background-color 0.2s;
+}
+
+.login-btn:hover {
+  background-color: #e2e2e2;
+}
+
+/* 하단 링크 */
+.login-footer {
+  margin-top: 25px;
+  font-size: 14px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px; 
+}
+
+.footer-link {
+  cursor: pointer;
+  opacity: 0.7;
+  transition: all 0.2s ease;
+}
+
+
+.footer-link:hover {
+  opacity: 1;
+  color: #bbeeff; 
+}
+
+.divider {
+  opacity: 0.5; 
+  cursor: default; 
 }
