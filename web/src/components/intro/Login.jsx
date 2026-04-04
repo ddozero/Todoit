@@ -33,6 +33,10 @@ function Login({ onLoginSuccess }) {
 
                 <button onClick={handleLogin} className='login-btn'>로그인</button>
 
+                <div className="signup">
+                    <span onClick={() => navigate('/signup')}>TODOIT 처음이신가요?</span>
+                </div>
+
                 <div className="login-footer">
                     <span className="footer-link" onClick={() => console.log('아이디 찾기')}>아이디 찾기</span>
                     <span className="divider">|</span>

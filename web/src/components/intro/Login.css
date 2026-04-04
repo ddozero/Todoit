@@ -8,7 +8,7 @@
 }
 
 .login-container {
-  background-color: #0c305f; 
+  background-color: #6482c2; 
   height: 100vh; 
   width: 100vw;      
   display: flex;
@@ -82,6 +82,25 @@
 
 .login-btn:hover {
   background-color: #e2e2e2;
+}
+
+.signup {
+    margin-top: 20px; /* 로그인 버튼과의 간격 */
+    margin-bottom: 15px; /* 아이디 찾기와의 간격 */
+    font-size: 14px;
+    color: #ffffff;
+}
+
+.signup span {
+    cursor: pointer;
+    opacity: 0.8;
+    text-decoration: underline; 
+    transition: opacity 0.2s;
+}
+
+.signup span:hover {
+    opacity: 1;
+    font-weight: bold;
 }
 
 /* 하단 링크 */
