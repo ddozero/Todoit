@@ -1,7 +1,7 @@
 
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import Header from "./components/common/Header.jsx";
-
+import Footer from "./components/common/Footer.jsx";
 import Login from "./components/intro/Login.jsx";
 import Signup from "./components/intro/Signup.jsx";
 import Profile from "./components/mypage/Profile.jsx";
@@ -15,6 +15,7 @@ function Layout({ children }) {
     <>
       {showCommon && <Header />}
       <main>{children}</main>
+      {showCommon && <Footer />}
     </>
   );
 }

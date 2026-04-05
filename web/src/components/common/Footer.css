@@ -1,0 +1,35 @@
+/* src/components/common/Footer.css */
+.main-footer {
+  width: 100%;
+  background-color: #ffffff; /* 배경은 흰색 */
+  border-top: 1px solid #eeeeee; /* 상단 구분선 */
+  padding: 50px 0; /* 위아래 여백 */
+  margin-top: auto; /* 컨텐츠가 적어도 하단에 붙도록 도움 */
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  text-align: left; /* 왼쪽 정렬 */
+}
+
+.footer-logo {
+  font-size: 1.4rem;
+  color: #666666;
+  margin: 0;
+  font-weight: bold;
+}
+
+.footer-subtitle {
+  font-size: 0.9rem;
+  color: #999999;
+  margin: 5px 0 20px 0;
+}
+
+.footer-info p {
+  font-size: 0.85rem;
+  color: #aaaaaa;
+  margin: 5px 0;
+  line-height: 1.4;
+}
