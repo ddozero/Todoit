@@ -9,14 +9,19 @@ import './App.css';
 
 function Layout({ children }) {
   const location = useLocation();
-  const showCommon = location.pathname !== "/";
+  const isLoginPage = location.pathname === "/";
 
   return (
-    <>
-      {showCommon && <Header />}
-      <main>{children}</main>
-      {showCommon && <Footer />}
-    </>
+    <div id="root"> 
+      {!isLoginPage && <Header />}
+      
+      {/* 로그인 페이지면 'login-main', 아니면 'common-main' 클래스 적용 */}
+      <main className={isLoginPage ? "login-main" : "common-main"}>
+        {children}
+      </main>
+      
+      {!isLoginPage && <Footer />}
+    </div>
   );
 }
 

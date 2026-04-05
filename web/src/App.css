@@ -11,15 +11,25 @@ html, body, #root {
 
 #root {
   display: flex;
-  flex-direction: column; /* 헤더-메인-푸터 순서 */
-  min-height: 100vh; /* 화면 높이 100% 보장 */
+  flex-direction: column; 
+  min-height: 100vh; 
 }
 
-/* 2. 메인 컨텐츠 영역을 고정 */
+/* 공통 구조 */
 main {
-  flex: 1; /* 이 설정이 푸터를 맨 아래로 밀어냅니다! */
+  flex: 1; 
   display: flex;
-  justify-content: center; /* 가로 중앙 */
-  align-items: center;     /* 세로 중앙 (박스를 화면 가운데로) */
-  padding: 40px 0;         /* 위아래 여유 공간 */
+  justify-content: center; 
+  align-items: center; 
+  width: 100%; /* 너비 꽉 차게 */
+}
+
+/* 1. 회원가입 등 일반 페이지: 위아래 여백 40px */
+.common-main {
+  padding: 40px 0;
+}
+
+/* 2. 로그인 페이지: 여백 0 (보라색이 꽉 차게!) */
+.login-main {
+  padding: 0;
 }
