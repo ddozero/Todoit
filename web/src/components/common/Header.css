@@ -1,0 +1,24 @@
+.main-header {
+    width: 100%;
+    padding: 30px 0; /* 위아래 여백 */
+    background-color: transparent; /* 배경색은 App에서 지정 */
+}
+
+.header-container {
+    max-width: 1200px; /* 전체 최대 너비 */
+    margin: 0 auto; /* 중앙 정렬 */
+    padding-left: 20px; /* 로고가 왼쪽 끝에 붙도록 여백 */
+}
+
+.logo-title {
+    font-size: 2rem;
+    color: #6366f1; /* 포인트 컬러 (보라색 계열) */
+    margin: 0;
+    font-weight: bold;
+}
+
+.logo-subtitle {
+    font-size: 1rem;
+    color: #888888;
+    margin-top: 5px;
+}
