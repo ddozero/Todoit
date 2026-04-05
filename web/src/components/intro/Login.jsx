@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Login.css';
 
 function Login({ onLoginSuccess }) {
     const [id, setId] = useState('');
     const [pw, setPw] = useState('');
+    const navigate = useNavigate();
 
     const handleLogin = () => {
         if (id.trim() === '' || pw.trim() === '') {
