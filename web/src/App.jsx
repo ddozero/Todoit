@@ -1,10 +1,10 @@
+
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import Login from "./components/intro/Login.jsx";
 import Signup from "./components/intro/Signup.jsx";
 import Profile from "./components/mypage/Profile.jsx";
 
 function App() {
-    const [currentPage, setCurrentPage] = useState('login');
 
     return (
       <Router>
