@@ -6,7 +6,7 @@ function Footer(){
         <footer className="main-footer">
             <div className="footer-container">
                 <h3 className="footer-logo">TODOIT</h3>
-                <p className="footer-subtitle">나도 취준 할 수 있다!!</p>
+                <p className="footer-subtitle">취업 관리 한번에 하려고 만든 프로젝트</p>
 
                 <div className="footer-info">
                     <p>개발자 : ddozero@naver.com</p>

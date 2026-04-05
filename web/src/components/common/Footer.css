@@ -15,14 +15,15 @@
 }
 
 .footer-logo {
-  font-size: 1.4rem;
-  color: #666666;
+  font-size: 35px;
+  color: #c2c2c2;
   margin: 0;
   font-weight: bold;
+  line-height: 1;
 }
 
 .footer-subtitle {
-  font-size: 0.9rem;
+  font-size: 13px;
   color: #999999;
   margin: 5px 0 20px 0;
 }
