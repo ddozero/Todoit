@@ -1,37 +1,46 @@
-HELP.md
-.gradle
-build/
-!gradle/wrapper/gradle-wrapper.jar
-!**/src/main/**/build/
-!**/src/test/**/build/
+# [기타 설정 및 메타데이터]
+.metadata/
+.gitattributes
+cd
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-bin/
-!**/src/main/**/bin/
-!**/src/test/**/bin/
+# [프로젝트 내부 빌드 및 설정 파일 (경로 수정 완료)]
+todoit/HELP.md
+todoit/.gradle
+todoit/build/
+!todoit/gradle/wrapper/gradle-wrapper.jar
+!todoit/**/src/main/**/build/
+!todoit/**/src/test/**/build/
+
+### STS / Eclipse ###
+todoit/.apt_generated
+todoit/.classpath
+todoit/.factorypath
+todoit/.project
+todoit/.settings
+todoit/.springBeans
+todoit/.sts4-cache
+todoit/bin/
+!todoit/**/src/main/**/bin/
+!todoit/**/src/test/**/bin/
 
 ### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
-out/
-!**/src/main/**/out/
-!**/src/test/**/out/
+todoit/.idea
+todoit/*.iws
+todoit/*.iml
+todoit/*.ipr
+todoit/out/
+!todoit/**/src/main/**/out/
+!todoit/**/src/test/**/out/
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
+### NetBeans (혹시 몰라 경로만 수정) ###
+todoit/nbproject/private/
+todoit/nbbuild/
+todoit/dist/
+todoit/nbdist/
+todoit/.nb-gradle/
 
 ### VS Code ###
-.vscode/
+todoit/.vscode/
+
+# [DB 관련]
+# 만약 mySQL_DB 안에 임시 로그파일 등이 생긴다면 아래에 추가하세요.
