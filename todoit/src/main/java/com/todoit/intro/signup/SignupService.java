@@ -1,5 +1,7 @@
 package com.todoit.intro.signup;
 
-public class SignupService {
+
+public interface SignupService {
+	int registerUser(SignupRequestDTO SignupRequestDTO);
 
 }
