@@ -19,7 +19,7 @@ public class SignupController {
 
 	@PostMapping("/join")
 	public ResponseEntity<ApiResponse<?>> joinUser(@RequestBody SignupRequestDTO requestDTO) {
-		int result = signupService.registerUser(requestDTO);
+		int result = signupService.signupUser(requestDTO);
 
 		if (result == 1) {
 			return ResponseEntity.ok(new ApiResponse<>(200, "회원가입성공", null));

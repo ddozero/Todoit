@@ -11,7 +11,7 @@ public class SignupServiceImpl implements SignupService {
 	private SignupMapper signupMapper;
 	
 	@Override
-	public int registerUser(SignupRequestDTO SignupRequestDTO) {
+	public int signupUser(SignupRequestDTO SignupRequestDTO) {
 		signupMapper.signupUser(SignupRequestDTO);
 		return 1;
 	}

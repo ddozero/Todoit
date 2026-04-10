@@ -7,8 +7,10 @@ public class SignupRequestDTO {
 	
 	private String userId;
 	private String password;
+	private String name;
 	private String email;
 	private String phone;
+	private Integer result;
 	
 
 }
