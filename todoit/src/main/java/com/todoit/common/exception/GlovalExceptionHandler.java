@@ -19,7 +19,7 @@ public class GlovalExceptionHandler {
 	
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<ApiResponse<?>> handleException(Exception e){
-		ApiResponse<?> response = new ApiResponse<>(500, "서버 오류가 발생했습니다.", null);
+		ApiResponse<?> response = new ApiResponse<>(500, e.toString(), null);
 		
 		return ResponseEntity.internalServerError().body(response);
 	}

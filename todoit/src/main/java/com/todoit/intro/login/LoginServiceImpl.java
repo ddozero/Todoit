@@ -14,10 +14,10 @@ public class LoginServiceImpl implements LoginService {
 
 	@Override
 	public LoginResponseDTO login(LoginRequestDTO requestDTO) {
-
+		
 		// 1. 프로시저 호출
 		loginMapper.loginUser(requestDTO);
-
+		
 		// 2. 결과값 확인
 		if (requestDTO.getResult() == null) {
 		    throw new CustomException(500, "로그인 처리 중 오류가 발생하였습니다.");
