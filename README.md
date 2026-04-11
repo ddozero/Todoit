@@ -8,4 +8,4 @@
 - **Backend:** Java 17, Spring Boot 3.x, Gradle, MyBatis, Lombok
 - **Frontend:** React, JavaScript (ES6+), HTML5/CSS3
 - **Database:** MySQL 8.0
-    - **Tools:** Git (GitHub), Postman, DBeaver, Notion
+- **Tools:** Git (GitHub), Postman, DBeaver, Notion
