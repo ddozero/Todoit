@@ -11,13 +11,13 @@ import com.todoit.common.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/signup")
+@RequestMapping("/api/auth")
 @RequiredArgsConstructor // 생성자 주입 방식 사용
 public class SignupController {
 
 	private final SignupService signupService;
 
-	@PostMapping("/join")
+	@PostMapping("/signup")
 	public ResponseEntity<ApiResponse<?>> joinUser(@RequestBody SignupRequestDTO requestDTO) {
 		int result = signupService.signupUser(requestDTO);
 
