@@ -7,5 +7,10 @@ public class LoginRequestDTO {
 	
 	private String userId;
 	private String password;
+	
+	//결과
+	private Integer result;
+	private String message;
+	private String name;
 
 }
