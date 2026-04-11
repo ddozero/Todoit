@@ -18,7 +18,7 @@ public class SignupController {
 	private final SignupService signupService;
 
 	@PostMapping("/signup")
-	public ResponseEntity<ApiResponse<?>> joinUser(@RequestBody SignupRequestDTO requestDTO) {
+	public ResponseEntity<ApiResponse<?>> signup(@RequestBody SignupRequestDTO requestDTO) {
 		int result = signupService.signupUser(requestDTO);
 
 		if (result == 1) {

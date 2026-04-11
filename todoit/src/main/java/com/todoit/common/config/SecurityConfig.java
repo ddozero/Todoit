@@ -14,7 +14,7 @@ public class SecurityConfig {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
 		http.csrf(csrf -> csrf.disable()) // 포스트맨 테스트 위해 csrf비활성
-				.authorizeHttpRequests(auth -> auth.requestMatchers("/api/signup/**").permitAll() // 회원가입 허용, 누구나 접근 가능
+				.authorizeHttpRequests(auth -> auth.requestMatchers("/api/auth/**").permitAll() // 회원가입 로그인 허용, 누구나 접근 가능
 						.anyRequest().authenticated()); //그 외는 로그인 필수
 		
 		return http.build();
