@@ -7,6 +7,7 @@ import javax.crypto.SecretKey;
 
 import org.springframework.stereotype.Component;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,4 +38,30 @@ public class JwtProvider {
 			   signWith(secretKey). //(중요)우리 서버가 만든 진짜 토큰인지 증명하는 서명
 			   compact(); //최종 jwt문자열 완성
 	}
+	
+	/* 토큰 검증 메소드 */ 
+	//토큰 안에 사용자 아이디 꺼내기 메소드
+	public String getUserId(String token) {
+		return getClaims(token).getSubject();
+		
+	}
+	
+	//토큰이 정상인지 확인 메소드
+	public boolean validateToken(String token) {
+		try {
+			getClaims(token);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	//토큰을 실제로 해석해 안에 있는 정보를 꺼내는 메소드
+	private Claims getClaims(String token) {
+		return Jwts.parser()
+			   .verifyWith(secretKey)
+			   .build()
+			   .parseSignedClaims(token)
+			   .getPayload();
+		}
 }

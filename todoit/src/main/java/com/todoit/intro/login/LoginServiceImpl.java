@@ -3,6 +3,7 @@ package com.todoit.intro.login;
 import org.springframework.stereotype.Service;
 
 import com.todoit.common.exception.CustomException;
+import com.todoit.common.jwt.JwtProvider;
 
 import lombok.RequiredArgsConstructor;
 
@@ -11,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 public class LoginServiceImpl implements LoginService {
 
 	private final LoginMapper loginMapper;
+	//jwt생성기 가져옴
+	private final JwtProvider jwtProvider;
 
 	@Override
 	public LoginResponseDTO login(LoginRequestDTO requestDTO) {
@@ -27,7 +30,11 @@ public class LoginServiceImpl implements LoginService {
 		if (requestDTO.getResult() != 1) {
 			throw new CustomException(400, requestDTO.getMessage());
 		}
+		
+		//4. 로그인 성공 시 jwt 생성 
+		//로그인 성공한 사용자 아이디를 넣고 jwt문자열 하나 생성
+		String token = jwtProvider.createToken(requestDTO.getUserId());
 
-		return new LoginResponseDTO(requestDTO.getUserId(), requestDTO.getName(), requestDTO.getMessage(), null);
+		return new LoginResponseDTO(requestDTO.getUserId(), requestDTO.getName(), requestDTO.getMessage(), token);
 	}
 }
