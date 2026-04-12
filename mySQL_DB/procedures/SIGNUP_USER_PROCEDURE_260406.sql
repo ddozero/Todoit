@@ -1,11 +1,12 @@
 /******************************************************************************
- * 프로젝트명 : TODOIT (Job Application Management)
+ * 프로젝트명 : TODOIT (JOB APPLICATION MANAGEMENT)
  * 프로시저명 : SIGNUP_USER
  * 작성자    : DOYEONG KIM
  * 작성일    : 2026-04-06
  * 설명      : 회원가입 정보를 받아 USER 테이블에 저장
- * - USER_NO는 'YYMMDDHHmmss + 랜덤3자리'로 자동 생성함.
+ * - USER_NO는 'YYMMDDHHMMSS + 랜덤3자리'로 자동 생성함.
  * - 결과값(SP_RESULT): 성공(1), 오류(0)
+ * - 26.04.11 : 아이디 중복 처리 추가
  ******************************************************************************/
 
 USE TODOIT;
@@ -25,6 +26,9 @@ CREATE PROCEDURE `SIGNUP_USER`(
 	OUT SP_RESULT   INT
 )
 BEGIN
+	-- 변수선언
+	DECLARE V_COUNT INT DEFAULT 0;
+
 	-- 에러 핸들링
 	DECLARE EXIT HANDLER FOR SQLEXCEPTION
 	BEGIN
@@ -34,6 +38,18 @@ BEGIN
 
 	-- 트랜잭션 시작
 	START TRANSACTION;
+	
+/***********************************중복체크*****************************************/
+	SELECT COUNT(*)
+	  INTO V_COUNT
+	  FROM `USER`
+	 WHERE `USER_ID` = SP_USER_ID;
+
+	IF V_COUNT > 0 THEN
+		-- 이미 존재하는 아이디
+		SET SP_RESULT = -1;
+
+	ELSE
 
 /***********************************저장*****************************************/
 	INSERT INTO `USER` (
@@ -46,8 +62,8 @@ BEGIN
 		`CREATED_AT`
 	)
 	VALUES (
-		-- USER_NO : 'YYMMDDHHmmss + 랜덤3자리'
-		CONCAT(DATE_FORMAT(NOW(), '%y%m%d%H%i%s'), LPAD(FLOOR(RAND() * 1000), 3, '0')),
+		-- USER_NO : 'YYMMDDHHMMSS + 랜덤3자리'
+		CONCAT(DATE_FORMAT(NOW(), '%y%m%d%h%i%s'), LPAD(FLOOR(RAND() * 1000), 3, '0')),
 		SP_USER_ID,
 		SP_PASSWORD,
 		SP_NAME,
@@ -55,21 +71,26 @@ BEGIN
 		SP_EMAIL,
 		NOW()
 	);
-/******************************************************************************/
-	-- 확정 및 결과 값 세팅
-	COMMIT;
 	SET SP_RESULT = 1;
+END IF;
+/******************************************************************************/
 
+	COMMIT;
+	
 END $$ -- 프로시저 끝
 
 -- 다시 세미콜론(;)으로 구분자 복구
 DELIMITER ;
 
-/* ============================================================
- * [ 테스트 및 결과 확인 쿼리 ]
- * ============================================================
- * SET @out_res = 0;
- * CALL SIGNUP_USER('MANAGER', '1234', '관리자', '010-1234-5678', 'MANAGER@example.com', @out_res);
- * SELECT @out_res AS '실행결과';
- * SELECT * FROM `USER` ORDER BY CREATED_AT DESC;
- * ============================================================ */
+
+
+
+
+ ============================================================
+ [ 테스트 및 결과 확인 쿼리 ]
+============================================================
+SET @OUT_RES = 0;
+CALL SIGNUP_USER('MANAGER', '1234', '관리자', '010-1234-5678', 'MANAGER@EXAMPLE.COM', @OUT_RES);
+SELECT @OUT_RES AS '실행결과';
+SELECT * FROM `USER` ORDER BY CREATED_AT DESC;
+============================================================ 

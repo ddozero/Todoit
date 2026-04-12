@@ -28,6 +28,6 @@ public class LoginServiceImpl implements LoginService {
 			throw new CustomException(400, requestDTO.getMessage());
 		}
 
-		return new LoginResponseDTO(requestDTO.getUserId(), requestDTO.getName(), requestDTO.getMessage());
+		return new LoginResponseDTO(requestDTO.getUserId(), requestDTO.getName(), requestDTO.getMessage(), null);
 	}
 }
