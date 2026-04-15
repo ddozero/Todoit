@@ -7,12 +7,47 @@ function Login({ onLoginSuccess }) {
     const [pw, setPw] = useState('');
     const navigate = useNavigate();
 
-    const handleLogin = () => {
+    const handleLogin = async () => {
         if (id.trim() === '' || pw.trim() === '') {
             alert('아이디와 비밀번호 모두 입력해주세요!');
             return;
         }
-        onLoginSuccess();
+
+        try{
+            const respose = await fetch('http://localhost:8081/api/auth/login', {
+                method: 'POST',
+                headers:{
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    userId:id,
+                    password:pw,
+                }),
+            });
+            const result = await respose.json();
+
+            if(!respose.ok){
+                alert(result.message || '로그인에 실패했습니다.');
+                return;
+            }
+
+            const token = result?.data?.token;
+
+            if(!token){
+                alert('토큰이 없습니다. 로그인 응답을 확인해주세요.');
+                return;
+            }
+            localStorage.setItem('token', token);
+            localStorage.setItem('userId',result.data.userId);
+            localStorage.setItem('name',result.data.name);
+
+            alert('로그인 성공!');
+            onLoginSuccess();
+            
+        } catch(error){
+            console.error('로그인 오류:', error);
+            alert('서버와 통신 중 오류가 발생했습니다.')
+        }
     };
 
     return (
