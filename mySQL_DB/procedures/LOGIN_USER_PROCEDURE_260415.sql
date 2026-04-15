@@ -1,0 +1,75 @@
+/******************************************************************************
+ * 프로젝트명 : TODOIT (JOB APPLICATION MANAGEMENT)
+ * 프로시저명 : LOGIN_USER
+ * 작성자    : DOYEONG KIM
+ * 작성일    : 2026-04-10
+ * 설명      : 사용자 아이디/비밀번호를 확인하여 로그인 결과를 반환
+ * - 결과값(SP_RESULT): 성공(1), 아이디없음(0), 비밀번호불일치(-1), 오류(-99)
+ * - 결과메시지(SP_MESSAGE): 처리 결과 메시지 반환
+ * - 사용자명(SP_NAME): 로그인 성공 시 사용자 이름 반환
+ * - 26.04.15 : 암호화비밀번호(SP_DB_PASSWORD): DB 저장 비밀번호 반환
+ ******************************************************************************/
+
+USE TODOIT;
+
+-- 기존 프로시저 삭제
+-- DROP PROCEDURE IF EXISTS LOGIN_USER;
+
+DELIMITER $$
+
+CREATE PROCEDURE LOGIN_USER(
+    IN  SP_USER_ID    VARCHAR(100),
+    OUT SP_DB_PASSWORD   VARCHAR(200),
+    OUT SP_RESULT     INT,
+    OUT SP_MESSAGE    VARCHAR(100),
+    OUT SP_NAME       VARCHAR(100)
+)
+BEGIN
+    -- 변수 선언
+    DECLARE V_COUNT INT DEFAULT 0;
+    DECLARE V_PASSWORD VARCHAR(200);
+    DECLARE V_NAME VARCHAR(100);
+
+    -- 에러 핸들링
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        ROLLBACK;
+        SET SP_RESULT = -99;
+        SET SP_MESSAGE = '로그인 처리 중 오류가 발생했습니다.';
+        SET SP_NAME = NULL;
+    	SET SP_DB_PASSWORD = null;
+    END;
+
+    START TRANSACTION;
+
+    /***********************************아이디 확인*****************************************/
+    SELECT COUNT(*)
+      INTO V_COUNT
+      FROM `USER`
+     WHERE `USER_ID` = SP_USER_ID;
+
+    IF V_COUNT = 0 THEN
+        SET SP_RESULT = 0;
+        SET SP_MESSAGE = '존재하지 않는 아이디입니다.';
+        SET SP_NAME = NULL;
+   		SET SP_DB_PASSWORD = NULL;
+
+    ELSE
+        /***********************************비밀번호 확인*****************************************/
+        SELECT `PASSWORD`, `NAME`
+          INTO V_PASSWORD, V_NAME
+          FROM `USER`
+         WHERE `USER_ID` = SP_USER_ID;
+
+	        SET SP_RESULT = 1;
+	        SET SP_MESSAGE = '사용자 조회 성공';
+	        SET SP_NAME = V_NAME;
+	        SET SP_DB_PASSWORD = V_PASSWORD;
+    END IF;
+    /******************************************************************************/
+
+    COMMIT;
+
+END $$
+
+DELIMITER ;

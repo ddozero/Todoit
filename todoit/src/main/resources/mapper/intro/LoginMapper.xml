@@ -5,7 +5,7 @@
 	<update id="loginUser" statementType="CALLABLE" parameterType="com.todoit.intro.login.LoginRequestDTO">
         { CALL LOGIN_USER(
             #{userId,   mode=IN,  jdbcType=VARCHAR},
-            #{password, mode=IN,  jdbcType=VARCHAR},
+            #{dbPassword, mode=OUT,  jdbcType=VARCHAR},
             #{result,   mode=OUT, jdbcType=INTEGER},
             #{message,   mode=OUT, jdbcType=VARCHAR},
             #{name, mode=OUT, jdbcType=VARCHAR}

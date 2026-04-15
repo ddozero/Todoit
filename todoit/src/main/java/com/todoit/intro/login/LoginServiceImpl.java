@@ -1,5 +1,6 @@
 package com.todoit.intro.login;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.todoit.common.exception.CustomException;
@@ -14,6 +15,8 @@ public class LoginServiceImpl implements LoginService {
 	private final LoginMapper loginMapper;
 	//jwt생성기 가져옴
 	private final JwtProvider jwtProvider;
+	//비밀번호 암호화 비교
+	private final PasswordEncoder passwordEncoder;
 
 	@Override
 	public LoginResponseDTO login(LoginRequestDTO requestDTO) {
@@ -31,7 +34,12 @@ public class LoginServiceImpl implements LoginService {
 			throw new CustomException(400, requestDTO.getMessage());
 		}
 		
-		//4. 로그인 성공 시 jwt 생성 
+		// 4. 비밀번호 비교 (입력비밀번호, db저장된 암호화비밀번호)
+		if (!passwordEncoder.matches(requestDTO.getPassword(), requestDTO.getDbPassword())) {
+			throw new CustomException(400, "비밀번호가 일치하지 않습니다.");
+		}
+		
+		//5. 로그인 성공 시 jwt 생성 
 		//로그인 성공한 사용자 아이디를 넣고 jwt문자열 하나 생성
 		String token = jwtProvider.createToken(requestDTO.getUserId());
 
