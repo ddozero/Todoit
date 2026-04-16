@@ -24,4 +24,10 @@ public class SignupServiceImpl implements SignupService {
 		signupMapper.signupUser(SignupRequestDTO);
 		return 1;
 	}
+	
+	@Override
+	public int checkUserId(SignupRequestDTO signupRequestDTO) {
+		signupMapper.checkUserId(signupRequestDTO);;
+		return signupRequestDTO.getResult();
+	}
 }

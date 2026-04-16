@@ -29,4 +29,16 @@ public class SignupController {
 
 	}
 
+	@PostMapping("/checkId")
+	public ResponseEntity<ApiResponse<?>> checkId(@RequestBody SignupRequestDTO requestDTO) {
+
+		int result = signupService.checkUserId(requestDTO);
+
+		if (result == 1) {
+			return ResponseEntity.ok(new ApiResponse<>(200, "이미 존재하는 아이디입니다.", null));
+		} else {
+			return ResponseEntity.ok(new ApiResponse<>(200, "사용 가능한 아이디입니다.", null));
+		}
+	}
+
 }
