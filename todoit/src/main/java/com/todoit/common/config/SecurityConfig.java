@@ -60,7 +60,7 @@ public class SecurityConfig {
 	    return new BCryptPasswordEncoder();
 	}
 	
-	//cros 허용추가 
+	//cros 허용추가 (백엔드,프론트엔드 각각실행)
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
 
-function Login({ onLoginSuccess }) {
+function Login() {
     const [id, setId] = useState('');
     const [pw, setPw] = useState('');
     const navigate = useNavigate();
@@ -42,7 +42,7 @@ function Login({ onLoginSuccess }) {
             localStorage.setItem('name',result.data.name);
 
             alert('로그인 성공!');
-            onLoginSuccess();
+            //onLoginSuccess();
             
         } catch(error){
             console.error('로그인 오류:', error);
