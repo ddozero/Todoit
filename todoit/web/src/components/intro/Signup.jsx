@@ -46,7 +46,7 @@ function Signup() {
 		}
 
 		try {
-			const response = await fetch("http://localhost:8081/api/auth/check-id", {
+			const response = await fetch("http://localhost:8081/api/auth/checkId", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json"
