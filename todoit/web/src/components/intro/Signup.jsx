@@ -129,6 +129,7 @@ function Signup() {
 
 				<div className="input-field">
 					<label>아이디</label>
+				<div className="id-check-row">
 					<input name="userId"
 						placeholder={PLACEHOLDERS.USER_ID}
 						value={formData.userId}
@@ -142,6 +143,7 @@ function Signup() {
 						{idCheckMessage}
 					</p>
 				)}
+				</div>
 
 				<div className="input-field">
 					<label>비밀번호</label>

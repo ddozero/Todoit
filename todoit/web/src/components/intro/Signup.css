@@ -28,6 +28,37 @@
   font-size: 1rem;
 }
 
+/* 아이디 중복체크 */
+.id-check-row {
+	display: flex;
+	gap: 8px;
+}
+
+.id-check-row input {
+	flex: 1;
+}
+
+.id-check-msg {
+	margin-top: 6px;
+	font-size: 13px;
+}
+
+.id-check-msg.success {
+	color: green;
+}
+
+.id-check-msg.fail {
+	color: red;
+}
+
+.id-check-row button {
+    white-space: nowrap;
+    border : none;
+    border-radius : 6px;
+    background-color : #eeeeee;
+    cursor: pointer;
+}
+
 /* 회원가입 버튼 */
 .submit-btn {
   width: 100%;
