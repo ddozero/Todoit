@@ -6,6 +6,8 @@ import './Signup.css';
 function Signup() {
 
 	const [errorMessage, setErrorMessage] = useState('');
+	const [idCheckMessage, setIdCheckMessage] = useState('');
+	const [isIdAvailable, setIsIdAvailable] = useState(null);
 
 	const [formData, setFormData] = useState({ //객체로 관리
 		userId: '',
@@ -20,19 +22,75 @@ function Signup() {
 	const handleChange = (e) => {
 		const { name, value, type, checked } = e.target;
 		setErrorMessage('');
+
+		//아이디 중복체크 - 초기화
+		if (name === "userId") {
+			setIdCheckMessage('');
+			setIsIdAvailable(null);
+		}
+
 		setFormData({
 			...formData,
 			[name]: type === 'checkbox' ? checked : value
 		});
 	}
-	
+
 	const navigate = useNavigate();
 
+	//아이디 중복확인 메소드
+	const handleCheckId = async () => {
+		if (!formData.userId) {
+			setIdCheckMessage("아이디를 입력해주세요.");
+			setIsIdAvailable(false);
+			return;
+		}
+
+		try {
+			const response = await fetch("http://localhost:8081/api/auth/check-id", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json"
+				},
+				body: JSON.stringify({ userId: formData.userId })
+			});
+
+			const result = await response.json();
+
+			setIdCheckMessage(result.message);
+
+			if (result.message.includes("사용 가능")) {
+				setIsIdAvailable(true);
+			} else {
+				setIsIdAvailable(false);
+			}
+
+		} catch (error) {
+			console.error("아이디 중복확인 오류", error);
+			setIdCheckMessage("서버와 통신 중 오류가 발생했습니다.");
+			setIsIdAvailable(false);
+		}
+	};
+
+
+	//회원가입 처리 메소드 
 	const handleSignup = async () => {
+		//동의체크
 		if (!formData.agreed) {
 			setErrorMessage(VALIDATION_ERRORS.AGREEMENT_REQUIRED);
 			return;
 		}
+
+		//아이디 중복확인 검사
+		if (isIdAvailable === null) {
+			setErrorMessage("아이디 중복 확인을 해주세요.");
+			return;
+		}
+
+		if (isIdAvailable === false) {
+			setErrorMessage("이미 존재하는 아이디입니다.");
+			return;
+		}
+
 		const requestData = {
 			userId: formData.userId,
 			password: formData.password,
@@ -76,7 +134,14 @@ function Signup() {
 						value={formData.userId}
 						onChange={handleChange}
 					/>
+					<button type="button" onClick={handleCheckId}> 중복확인 </button>
 				</div>
+
+				{idCheckMessage && (
+					<p className={`id-check-msg ${isIdAvailable ? "susscess" : "fail"}`}>
+						{idCheckMessage}
+					</p>
+				)}
 
 				<div className="input-field">
 					<label>비밀번호</label>
@@ -91,7 +156,7 @@ function Signup() {
 					<label>이름</label>
 					<input type="text"
 						name="name"
-						value={formData.userName}
+						value={formData.name}
 						onChange={handleChange}
 					/>
 				</div>
