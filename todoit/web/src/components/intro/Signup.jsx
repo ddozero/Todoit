@@ -18,6 +18,12 @@ function Signup() {
 		authNum: '',
 		agreed: false
 	});
+	//실시간 유효성 검사
+	const [fieldErrors, setFieldErrors] = useState({
+		userId: '',
+		password: '',
+		email: ''
+	});
 
 	const handleChange = (e) => {
 		const { name, value, type, checked } = e.target;
@@ -33,6 +39,28 @@ function Signup() {
 			...formData,
 			[name]: type === 'checkbox' ? checked : value
 		});
+		
+		//실시간 유효성 검사
+		if (name === "userId") {
+			setFieldErrors((prev) => ({
+				...prev,
+				userId: getUserIdError(value)
+			}));
+		}
+
+		if (name === "password") {
+			setFieldErrors((prev) => ({
+				...prev,
+				password: getPasswordError(value)
+			}));
+		}
+
+		if (name === "email") {
+			setFieldErrors((prev) => ({
+				...prev,
+				email: getEmailError(value)
+			}));
+		}
 	}
 
 	const navigate = useNavigate();
@@ -41,6 +69,12 @@ function Signup() {
 	const handleCheckId = async () => {
 		if (!formData.userId) {
 			setIdCheckMessage("아이디를 입력해주세요.");
+			setIsIdAvailable(false);
+			return;
+		}
+
+		if (!validateUserId(formData.userId)) {
+			setIdCheckMessage("아이디는 영문/숫자 조합 4~12자로 입력해주세요.");
 			setIsIdAvailable(false);
 			return;
 		}
@@ -74,20 +108,10 @@ function Signup() {
 
 	//회원가입 처리 메소드 
 	const handleSignup = async () => {
-		//동의체크
-		if (!formData.agreed) {
-			setErrorMessage(VALIDATION_ERRORS.AGREEMENT_REQUIRED);
-			return;
-		}
+		const validationMessage = validateSignupForm(formData, isIdAvailable);
 
-		//아이디 중복확인 검사
-		if (isIdAvailable === null) {
-			setErrorMessage("아이디 중복 확인을 해주세요.");
-			return;
-		}
-
-		if (isIdAvailable === false) {
-			setErrorMessage("이미 존재하는 아이디입니다.");
+		if (validationMessage) {
+			setErrorMessage(validationMessage);
 			return;
 		}
 
@@ -122,6 +146,77 @@ function Signup() {
 		}
 	};
 
+	//유효성검사
+	const validateSignupForm = (formData, isIdAvailable) => {
+		if (!formData.userId || !formData.password || !formData.name || !formData.email || !formData.phone) {
+			return "모든 항목을 입력해주세요.";
+		}
+
+		if (!validateUserId(formData.userId)) {
+			return "아이디는 영문/숫자 조합 4~12자로 입력해주세요.";
+		}
+
+		if (!validatePassword(formData.password)) {
+			return "비밀번호는 영문과 숫자를 포함한 8자 이상이어야 합니다.";
+		}
+
+		if (!validateEmail(formData.email)) {
+			return "올바른 이메일 형식을 입력해주세요.";
+		}
+
+		if (!formData.agreed) {
+			return "개인정보 이용 및 수집에 동의해주세요.";
+		}
+
+		if (isIdAvailable === null) {
+			return "아이디 중복 확인을 해주세요.";
+		}
+
+		if (isIdAvailable === false) {
+			return "이미 존재하는 아이디입니다.";
+		}
+
+		return "";
+	};
+
+	const validateUserId = (userId) => {
+		return /^[a-zA-Z0-9]{4,12}$/.test(userId);
+	};
+
+	const validatePassword = (password) => {
+		return /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(password);
+	};
+
+	const validateEmail = (email) => {
+		return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+	};
+
+	//실시간 유효성 검사 
+	const getUserIdError = (userId) => {
+		if (!userId) return '';
+		if (!validateUserId(userId)) {
+			return "아이디는 영문/숫자 조합 4~12자로 입력해주세요.";
+		}
+		return '';
+	};
+
+	const getPasswordError = (password) => {
+		if (!password) return '';
+		if (!validatePassword(password)) {
+			return "비밀번호는 영문과 숫자를 포함한 8자 이상이어야 합니다.";
+		}
+		return '';
+	};
+
+	const getEmailError = (email) => {
+		if (!email) return '';
+		if (!validateEmail(email)) {
+			return "올바른 이메일 형식을 입력해주세요.";
+		}
+		return '';
+	};
+
+
 	return (
 		<div className="signup-container">
 			<div className="signup-box">
@@ -129,20 +224,21 @@ function Signup() {
 
 				<div className="input-field">
 					<label>아이디</label>
-				<div className="id-check-row">
-					<input name="userId"
-						placeholder={PLACEHOLDERS.USER_ID}
-						value={formData.userId}
-						onChange={handleChange}
-					/>
-					<button type="button" onClick={handleCheckId}> 중복확인 </button>
-				</div>
+					<div className="id-check-row">
+						<input name="userId"
+							placeholder={PLACEHOLDERS.USER_ID}
+							value={formData.userId}
+							onChange={handleChange}
+						/>
+						<button type="button" onClick={handleCheckId}> 중복확인 </button>
+					</div>
+					{fieldErrors.userId && (<p className="field-error-text">{fieldErrors.userId}</p>)}
 
-				{idCheckMessage && (
-					<p className={`id-check-msg ${isIdAvailable ? "susscess" : "fail"}`}>
-						{idCheckMessage}
-					</p>
-				)}
+					{idCheckMessage && (
+						<p className={`id-check-msg ${isIdAvailable ? "success" : "fail"}`}>
+							{idCheckMessage}
+						</p>
+					)}
 				</div>
 
 				<div className="input-field">
@@ -152,6 +248,9 @@ function Signup() {
 						value={formData.password}
 						onChange={handleChange}
 					/>
+					{fieldErrors.password && (
+						<p className="field-error-text">{fieldErrors.password}</p>
+					)}
 				</div>
 
 				<div className="input-field">
@@ -169,7 +268,11 @@ function Signup() {
 						name="email"
 						value={formData.email}
 						onChange={handleChange}
+						placeholder="todoit@todoit.com"
 					/>
+					{fieldErrors.email && (
+						<p className="field-error-text">{fieldErrors.email}</p>
+					)}
 				</div>
 
 				<div className="input-field">

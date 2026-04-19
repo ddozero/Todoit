@@ -59,6 +59,13 @@
     cursor: pointer;
 }
 
+/*실시간 검증 메세지*/
+.field-error-text {
+	margin-top: 6px;
+	font-size: 13px;
+	color: red;
+}
+
 /* 회원가입 버튼 */
 .submit-btn {
   width: 100%;
